@@ -39,6 +39,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('superadmin', '超级管理员'),
         ('admin', '管理员'),
         ('user', '普通用户'),
+        ('appraiser', '外部鉴定'),
     ]
     
     username = models.CharField('用户名', max_length=50, unique=True)
