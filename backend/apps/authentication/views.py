@@ -190,7 +190,11 @@ class UserDetailView(APIView):
         # 超级管理员（ID=1）不能被删除
         if user.is_super_admin:
             return error_response(message='超级管理员不能被删除')
-        
+
+        # 外部鉴定人员档案与审计台账通过 PROTECT 保留，只能停用不能物理删除
+        if hasattr(user, 'appraiser_profile'):
+            return error_response(message='该外部鉴定人员存在档案与访问审计记录，请改用停用处理')
+
         username = user.username
         user.delete()
         
